@@ -3,7 +3,7 @@
 > 100% Native TV Application built with Kotlin, Jetpack Compose for TV, and Room SQLite offline caching.
 > Turn any Amazon Fire TV Stick, Google TV, or Android TV device into a high-performance arcade leaderboard display.
 
-![Pincast Ambient Arcade Display Banner](https://pinballbuddies.com/assets/tv-banner.png)
+![Pincast Ambient Arcade Display Banner](./tv_banner.png)
 
 ---
 
@@ -80,6 +80,7 @@ Are you having an autonomous AI agent (Claude, Antigravity, OpenDevin, Cursor, o
 ```
 pincast/
 ├── pinball-buddies-pincast-tv.apk  # Signed production release APK (Fire OS & Android TV)
+├── tv_banner.png                  # 1080p display banner artwork
 ├── README.md                      # Overview and quick-start guide
 ├── HUMAN_INSTALL_GUIDE.md         # Step-by-step human guide (Downloader & Wi-Fi)
 ├── AI_AGENT_INSTALL_GUIDE.md      # Deterministic playbook for AI agents
