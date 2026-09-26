@@ -58,6 +58,19 @@ Web browsers on TV hardware (like Silk or Smart TV browsers) suffer from high me
 
 ---
 
+## ⚡ Power-On & Boot Behavior (Startup Delay Explained)
+
+> **Important Note for Staff & Operators**:
+> When you power on your TV or turn on your arcade master power strip in the morning, Fire OS performs a cold boot and connects to the venue Wi-Fi network.
+>
+> ⏳ **There is an intentional 30–60 second startup delay timer** before the app launches.
+> **The display is not frozen or broken!** 
+> This delay guarantees that the Wi-Fi connection and HDMI display handshake are fully established before the app begins streaming live leaderboard scores.
+> 
+> 👉 **Do not press buttons on the remote.** Pinball Buddies Pincast will take over the display automatically!
+
+---
+
 ## Expanding Past Fire Stick: Other Platforms
 
 Wondering how our native code runs on Google TV, Apple TV, Raspberry Pi, or mini-PCs?

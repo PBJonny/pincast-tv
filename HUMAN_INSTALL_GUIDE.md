@@ -86,6 +86,21 @@ The script automatically:
 
 ---
 
+## ⚡ Power-On & Cold Boot Behavior: The Startup Delay Timer
+
+> **Don't touch the remote—it's not broken!** 🛑
+> When you power on your TV or turn on your arcade's master power strip in the morning, your Fire TV Stick / Android TV performs a cold boot.
+
+### Why is there a 30 to 60 second delay before the app launches?
+1. **Fire OS System Boot (~25–35s)**: Fire TV OS has to boot its operating system and start core system services. During this time, you may see the Amazon boot logo followed briefly by the standard Fire TV home screen.
+2. **Wi-Fi Network Association (~10–15s)**: The Fire Stick takes several seconds to find your venue's Wi-Fi router, negotiate WPA security, and acquire a local IP address.
+3. **Intentional Startup Delay Timer**: The auto-start sequence has an intentional delay timer before launching **Pinball Buddies Pincast TV**. This delay prevents black screens, ensures HDMI CEC video sync is ready, and guarantees the network socket is active before the leaderboard carousel begins fetching scores.
+4. **Hands-Off Fullscreen Launch**: Once the startup timer finishes, the Pincast app will take over the screen automatically in full 60fps landscape without anyone having to touch the Fire TV remote!
+
+💡 **Staff Opening Procedure**: Instruct your opening staff to simply switch on the TV power strip and walk away. Remind them **not** to press buttons on the remote—the display will initialize automatically within 45–60 seconds.
+
+---
+
 ## 🎮 Native TV Remote Navigation
 
 Unlike web browsers that require awkward mouse pointers, Pinball Buddies Pincast TV is 100% remote-control native:
@@ -97,6 +112,9 @@ Unlike web browsers that require awkward mouse pointers, Pinball Buddies Pincast
 ---
 
 ## 🛠️ Frequently Asked Questions (FAQ)
+
+### Why do I see the Fire TV home screen for 30–60 seconds after powering on?
+That is 100% normal cold-boot behavior. Fire OS needs time to boot and connect to Wi-Fi. An intentional startup delay timer waits for the network and HDMI handshake to stabilize before automatically launching Pinball Buddies Pincast. It is not frozen or broken—just give it a minute!
 
 ### Why native instead of a web browser?
 TV browsers (like Silk or smart TV web browsers) suffer from high memory consumption, address bar popups, lack of D-pad remote focus, and frequent crashes. Our native Kotlin + Jetpack Compose app runs at 60fps with Room SQLite local database persistence—if your venue's Wi-Fi drops, your screens keep running flawlessly!

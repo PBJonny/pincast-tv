@@ -115,6 +115,8 @@ adb -s "$DEVICE_TARGET" shell pidof com.pinballbuddies.app.tv
 ```
 *(Must return a numeric PID)*.
 
+> ⚠️ **Agent Notice (Startup Delay Timer)**: If testing cold-boot behavior or executing `adb reboot`, allow **45 to 60 seconds** after power-on. Fire OS takes ~30s to boot and connect to Wi-Fi, and the startup sequence includes an intentional delay timer before launching the application. Do not mark the test as failed during this initialization window.
+
 ---
 
 ## Step 6: Pairing & Operator Reporting
