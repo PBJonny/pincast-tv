@@ -39,7 +39,7 @@ Amazon Fire OS requires you to grant Downloader permission to install apps:
 2. Click into the URL text box.
 3. Enter the direct download URL for the release APK (e.g. from your GitHub Releases page or venue host):
    ```
-   https://github.com/<your-org>/<repo>/releases/latest/download/pinball-buddies-pincast-tv.apk
+https://github.com/PBJonny/pincast-tv/releases/latest/download/pinball-buddies-pincast-tv.apk
    ```
 4. Click **Go**. Downloader will fetch the APK package.
 5. When the download finishes, a prompt will appear on your TV: click **INSTALL**.
