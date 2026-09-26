@@ -98,5 +98,5 @@ pincast/
 
 ## Support & Resources
 
-- **Venue Management**: [https://pinballbuddies.com/venues](https://pinballbuddies.com/venues)
+- **Website**: [https://pinballbuddies.com](https://pinballbuddies.com)
 - **Support**: [support@pinballbuddies.com](mailto:support@pinballbuddies.com)
