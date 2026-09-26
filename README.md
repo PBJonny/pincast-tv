@@ -38,7 +38,9 @@ Web browsers on TV hardware (like Silk or Smart TV browsers) suffer from high me
 *Takes 60 seconds with just your Fire TV remote:*
 1. Install the free **Downloader** app from the Amazon Appstore.
 2. In Fire TV Settings: **My Fire TV > Developer Options > Install unknown apps > Downloader > ON**.
-3. In Downloader, type the direct download link to `pinball-buddies-pincast-tv.apk`.
+3. In Downloader, type the direct download link:
+   `https://github.com/PBJonny/pincast-tv/releases/latest/download/pinball-buddies-pincast-tv.apk`
+   *(or simply type **`pinballbuddies.com/tv`**)*
 4. Click **Install**, launch the app, and scan the on-screen QR code from your phone to link your venue!
 👉 *Read the full walkthrough in **[`HUMAN_INSTALL_GUIDE.md`](./HUMAN_INSTALL_GUIDE.md)**.*
 

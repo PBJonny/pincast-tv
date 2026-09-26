@@ -37,10 +37,11 @@ Amazon Fire OS requires you to grant Downloader permission to install apps:
 ### Step 3: Download & Install the Native Pincast TV App
 1. Open the **Downloader** app on your Fire TV.
 2. Click into the URL text box.
-3. Enter the direct download URL for the release APK (e.g. from your GitHub Releases page or venue host):
+3. Enter the direct download URL for the release APK:
    ```
-https://github.com/PBJonny/pincast-tv/releases/latest/download/pinball-buddies-pincast-tv.apk
+   https://github.com/PBJonny/pincast-tv/releases/latest/download/pinball-buddies-pincast-tv.apk
    ```
+   *(Or simply type the short link on your remote: **`pinballbuddies.com/tv`**)*
 4. Click **Go**. Downloader will fetch the APK package.
 5. When the download finishes, a prompt will appear on your TV: click **INSTALL**.
 6. Once installed, click **OPEN**!
