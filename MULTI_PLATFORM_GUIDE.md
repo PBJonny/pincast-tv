@@ -23,8 +23,7 @@
 The native app in this package (`pinball-buddies-pincast-tv.apk`) is built with Kotlin and Jetpack Compose for TV.
 
 ### Key Capabilities on Fire TV:
-- **Direct Sideload via Downloader App**: Takes 60 seconds with no computer required.
-- **Automated ADB Sideload**: `./scripts/setup-firestick.sh <FIRE_TV_IP>`.
+- **Automated 1-Click Wi-Fi Setup**: `./scripts/setup-firestick.sh <FIRE_TV_IP>` installs the APK, configures 24/7 kiosk sleep prevention, and auto-launches the display.
 - **Offline Room Database**: Stores display snapshots locally in SQLite so screens keep running even if the venue's internet drops.
 - **Arcade Burn-In Protection**: Subtle micro-pixel drift (±2dp drift every 120s) prevents image retention on arcade OLEDs and CRT monitors.
 - **Physical Remote Integration**: D-Pad Left/Right cycles machines; Back button opens Operator PIN pad.
@@ -43,7 +42,7 @@ Because Fire OS is an Android fork, **the exact same native APK (`pinball-buddie
 - **Walmart Onn. 4K Google TV Streaming Box** ($20)
 
 ### Installation:
-Install via ADB or using the **Downloader** app from the Google Play Store on the TV.
+Install via the automated 1-click Wi-Fi installer: `./scripts/setup-firestick.sh <DEVICE_IP>`.
 
 ---
 

@@ -1,54 +1,66 @@
-# Pinball Buddies Pincast TV: Human Installation Guide
+# Pinball Buddies Pincast TV: Installation & Setup Guide
 
 > **100% Native TV App** — Built specifically for TV hardware with Kotlin, Jetpack Compose for TV, and Room SQLite offline caching. Zero clunky web browsers.
+> **Automated Setup**: Installs the native APK, applies 24/7 arcade kiosk sleep prevention, and auto-launches the display over your local Wi-Fi network in seconds.
 
 ---
 
-## 📺 Method 1: Sideloading via the "Downloader" App (No Computer Needed! 📱)
+## 💻 Automated 1-Click Wi-Fi Setup (Mac, Windows, or Linux)
 
-This is the standard, easiest way to install native apps onto an Amazon Fire TV Stick or Android TV without touching a computer or terminal.
+This is the standard installation method for all venues. Running the installer script over Wi-Fi automatically:
+1. Installs the signed production APK (`pinball-buddies-pincast-tv.apk`).
+2. Configures 24/7 arcade kiosk power settings (disables sleep timers, stays awake on AC power, and turns off screensavers).
+3. Launches the native app directly on your TV screen in 1080p/4K landscape.
+
+---
 
 ### What you need:
-- Your Amazon Fire TV Stick or Android TV box plugged into your TV.
-- Your Fire TV remote.
+- Your Amazon Fire TV Stick, Google TV, or Android TV plugged into your TV.
+- Your computer (Mac, Windows, or Linux) connected to the same Wi-Fi network as your TV.
 - Your smartphone (to pair your venue).
 
 ---
 
-### Step 1: Install the Free "Downloader" App on your Fire TV
-1. Turn on your Fire TV Stick.
-2. From the Home screen, scroll to **Find** (magnifying glass) or press the Alexa voice button on your remote.
-3. Search for: **Downloader**.
-4. Select the orange **Downloader** app (by AFTVnews) and click **Get / Download** (it is 100% free).
-
----
-
-### Step 2: Enable "Install Unknown Apps" for Downloader
-Amazon Fire OS requires you to grant Downloader permission to install apps:
-
+### Step 1: Enable ADB Debugging on Fire TV (Takes 15 seconds)
 1. On your Fire TV, go to **Settings (⚙️)** > **My Fire TV**.
 2. Select **Developer Options**.
    - *(Note: If Developer Options is hidden on your Fire TV, go to **Settings > My Fire TV > About**, highlight your device name, and click the center remote button **7 times** until it says "You are now a developer").*
-3. Select **Install unknown apps**.
-4. Find **Downloader** in the list and switch it to **ON**.
+3. Set **ADB Debugging** to **ON**.
 
 ---
 
-### Step 3: Download & Install the Native Pincast TV App
-1. Open the **Downloader** app on your Fire TV.
-2. Click into the URL text box.
-3. Enter the direct download URL for the release APK:
-   ```
-   https://github.com/PBJonny/pincast-tv/releases/latest/download/pinball-buddies-pincast-tv.apk
-   ```
-   *(Or simply type the short link on your remote: **`pinballbuddies.com/tv`**)*
-4. Click **Go**. Downloader will fetch the APK package.
-5. When the download finishes, a prompt will appear on your TV: click **INSTALL**.
-6. Once installed, click **OPEN**!
+### Step 2: Note Your Fire TV's IP Address
+1. Go to **Settings** > **My Fire TV** > **About** > **Network**.
+2. Note the **IP Address** shown on the right (e.g. `192.168.1.150`).
 
 ---
 
-### Step 4: Link Your TV with Your Smartphone (1-Tap Pairing)
+### Step 3: Run the 1-Click Installer
+From the unzipped release folder on your computer, open your terminal (or Command Prompt) and run:
+
+```bash
+# On macOS or Linux:
+./scripts/setup-firestick.sh 192.168.1.150
+
+# On Windows:
+.\scripts\setup-firestick.bat 192.168.1.150
+```
+*(Tip: If you omit the IP address, the script will simply prompt you to type it in).*
+
+---
+
+### Step 4: Authorize on Your TV Screen
+1. Look at your TV screen. You will see a prompt: **"Allow USB/ADB debugging?"**
+2. Check the box **"Always allow from this computer"** and select **OK**.
+3. The script will finish in seconds:
+   - `[+] Connected to device successfully.`
+   - `[+] Installing native Pinball Buddies Pincast TV app...`
+   - `[+] Applying 24/7 arcade kiosk power settings...`
+   - `[+] Launching Pinball Buddies Pincast TV!`
+
+---
+
+### Step 5: Link Your TV with Your Smartphone (1-Tap Pairing)
 1. **Pinball Buddies Pincast TV** will launch natively on your screen in full 1080p/4K resolution.
 2. You will see a 6-digit **Pairing Code** and a large **QR Code**.
 3. Open your smartphone camera or the Pinball Buddies app.
@@ -56,33 +68,6 @@ Amazon Fire OS requires you to grant Downloader permission to install apps:
 5. Enter the 6-digit code.
 6. Tap **Approve Display**!
 7. **Your TV will instantly activate the live leaderboard carousel!** 🚀
-
----
-
-## 💻 Method 2: Automated 1-Click Wi-Fi Installer (From Mac, Windows, or Linux)
-
-If your computer is on the same Wi-Fi network as your Fire TV Stick, you can install the APK in 15 seconds without typing URLs on your TV remote:
-
-### 1. Enable ADB Debugging on Fire TV:
-- Go to **Settings > My Fire TV > Developer Options > ADB Debugging > ON**.
-- Note your device's IP address (**Settings > My Fire TV > About > Network**).
-
-### 2. Run the Installer:
-From the unzipped release folder on your computer:
-
-```bash
-# On Mac or Linux:
-./scripts/setup-firestick.sh 192.168.1.150
-
-# On Windows:
-.\scripts\setup-firestick.bat 192.168.1.150
-```
-
-The script automatically:
-- Connects to your Fire TV over Wi-Fi.
-- Installs the native APK (`pinball-buddies-pincast-tv.apk`).
-- Configures 24/7 arcade kiosk power settings (disables sleep timer and screensavers).
-- Launches the native app on your TV screen!
 
 ---
 
@@ -116,8 +101,8 @@ Unlike web browsers that require awkward mouse pointers, Pinball Buddies Pincast
 ### Why do I see the Fire TV home screen for 30–60 seconds after powering on?
 That is 100% normal cold-boot behavior. Fire OS needs time to boot and connect to Wi-Fi. An intentional startup delay timer waits for the network and HDMI handshake to stabilize before automatically launching Pinball Buddies Pincast. It is not frozen or broken—just give it a minute!
 
-### Why native instead of a web browser?
-TV browsers (like Silk or smart TV web browsers) suffer from high memory consumption, address bar popups, lack of D-pad remote focus, and frequent crashes. Our native Kotlin + Jetpack Compose app runs at 60fps with Room SQLite local database persistence—if your venue's Wi-Fi drops, your screens keep running flawlessly!
+### Why automated script setup instead of a TV web browser?
+TV browsers (like Silk or smart TV web browsers) suffer from high memory consumption, address bar popups, lack of D-pad remote focus, and frequent crashes. Our automated installer puts a 100% native Kotlin + Jetpack Compose app directly on the hardware with 24/7 sleep prevention and Room SQLite local database persistence—if your venue's Wi-Fi drops, your screens keep running flawlessly!
 
 ### Does this prevent screen sleep during arcade hours?
-Yes! Our native app includes active wake-lock management and burn-in micro-pixel drift (±2dp drift every 120s) to protect arcade OLEDs and CRT monitors.
+Yes! The installer configures permanent screen timeout (`screen_off_timeout 2147483647`), keeps the device awake on AC power (`stay_on_while_plugged_in 3`), disables screensavers, and the native app itself enforces active wake-lock management and burn-in micro-pixel drift (±2dp drift every 120s) to protect arcade OLEDs and CRT monitors.

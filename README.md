@@ -32,29 +32,22 @@ Web browsers on TV hardware (like Silk or Smart TV browsers) suffer from high me
 
 ---
 
-## Quick Start for Humans (2 Installation Methods)
+## Quick Start for Humans (1-Click Automated Wi-Fi Installer)
 
-### Method 1: Sideloading via "Downloader" App (No Computer Needed! 📱)
-*Takes 60 seconds with just your Fire TV remote:*
-1. Install the free **Downloader** app from the Amazon Appstore.
-2. In Fire TV Settings: **My Fire TV > Developer Options > Install unknown apps > Downloader > ON**.
-3. In Downloader, type the direct download link:
-   `https://github.com/PBJonny/pincast-tv/releases/latest/download/pinball-buddies-pincast-tv.apk`
-   *(or simply type **`pinballbuddies.com/tv`**)*
-4. Click **Install**, launch the app, and scan the on-screen QR code from your phone to link your venue!
-👉 *Read the full walkthrough in **[`HUMAN_INSTALL_GUIDE.md`](./HUMAN_INSTALL_GUIDE.md)**.*
+*Installs the APK over your local Wi-Fi, configures 24/7 arcade kiosk sleep prevention, and auto-launches the display:*
 
----
+1. On your Fire TV, enable ADB: **Settings > My Fire TV > Developer Options > ADB Debugging > ON**.
+2. Note your Fire TV's IP address: **Settings > My Fire TV > About > Network** (e.g. `192.168.1.150`).
+3. Run the installer from your computer:
+   ```bash
+   # macOS / Linux
+   ./scripts/setup-firestick.sh 192.168.1.150
 
-### Method 2: Automated 1-Click Wi-Fi Installer (From Mac, Windows, or Linux)
-*Installs the APK over Wi-Fi and configures 24/7 arcade kiosk power settings automatically:*
-```bash
-# macOS / Linux
-./scripts/setup-firestick.sh 192.168.1.150
-
-# Windows
-.\scripts\setup-firestick.bat 192.168.1.150
-```
+   # Windows
+   .\scripts\setup-firestick.bat 192.168.1.150
+   ```
+4. Look at your TV, select **"Always allow from this computer" > OK**, and scan the on-screen QR code from your phone to link your venue!
+👉 *Read the full step-by-step walkthrough in **[`HUMAN_INSTALL_GUIDE.md`](./HUMAN_INSTALL_GUIDE.md)**.*
 
 ---
 
@@ -97,7 +90,7 @@ pincast/
 ├── pinball-buddies-pincast-tv.apk  # Signed production release APK (Fire OS & Android TV)
 ├── tv_banner.png                  # 1080p display banner artwork
 ├── README.md                      # Overview and quick-start guide
-├── HUMAN_INSTALL_GUIDE.md         # Step-by-step human guide (Downloader & Wi-Fi)
+├── HUMAN_INSTALL_GUIDE.md         # Step-by-step human guide (1-Click Wi-Fi setup)
 ├── AI_AGENT_INSTALL_GUIDE.md      # Deterministic playbook for AI agents
 ├── MULTI_PLATFORM_GUIDE.md        # Native multi-platform adaptation playbook
 ├── manifest.json                  # Release metadata & SHA-256 integrity hash
