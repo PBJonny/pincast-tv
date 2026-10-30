@@ -51,8 +51,10 @@ apksigner verify --print-certs pinball-buddies-pincast-tv.apk
 
 Please **do not** open public GitHub issues for security vulnerabilities.
 
-Email security reports directly to **[support@pinballbuddies.com](mailto:support@pinballbuddies.com)** with:
-- A description of the issue and affected component (installer scripts, APK, or pairing handshake).
-- Steps to reproduce or proof-of-concept details.
+You can report a vulnerability privately using either of the following channels:
+1. **GitHub Private Vulnerability Reporting**: [Submit a private security advisory](https://github.com/PBJonny/pincast-tv/security/advisories/new) directly on GitHub.
+2. **Email**: Send reports directly to **[support@pinballbuddies.com](mailto:support@pinballbuddies.com)** with:
+   - A description of the issue and affected component (installer scripts, APK, or pairing handshake).
+   - Steps to reproduce or proof-of-concept details.
 
 We acknowledge security reports within **48 hours** and aim to ship validated fixes within **7 days**.

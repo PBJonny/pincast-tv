@@ -94,6 +94,9 @@ pincast/
 ├── AI_AGENT_INSTALL_GUIDE.md      # Deterministic playbook for AI agents
 ├── MULTI_PLATFORM_GUIDE.md        # Native multi-platform adaptation playbook
 ├── SECURITY.md                    # APK signature verification & security disclosure policy
+├── CONTRIBUTING.md                # Guidelines for reporting issues, hardware tests & PRs
+├── CODE_OF_CONDUCT.md             # Contributor Covenant community standards
+├── ACCESSIBILITY.md               # 10-foot arcade readability, D-Pad & motion safety statement
 ├── manifest.json                  # Release metadata & SHA-256 integrity hash
 └── scripts/
     ├── setup-firestick.sh         # macOS/Linux automated native APK installer (with SHA-256 check)
@@ -103,7 +106,12 @@ pincast/
 
 ---
 
-## Support & Resources
+## Community, Standards & Support
 
 - **Website**: [https://pinballbuddies.com](https://pinballbuddies.com)
 - **Support**: [support@pinballbuddies.com](mailto:support@pinballbuddies.com)
+- **Contributing**: [`CONTRIBUTING.md`](./CONTRIBUTING.md)
+- **Code of Conduct**: [`CODE_OF_CONDUCT.md`](./CODE_OF_CONDUCT.md)
+- **Security Policy**: [`SECURITY.md`](./SECURITY.md)
+- **Accessibility Statement**: [`ACCESSIBILITY.md`](./ACCESSIBILITY.md)
+- **License**: [`MIT License`](./LICENSE)

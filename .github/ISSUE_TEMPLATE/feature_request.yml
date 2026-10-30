@@ -1,0 +1,33 @@
+name: Feature Request / Display Enhancement
+description: Suggest an improvement for Pinball Buddies Pincast TV displays, kiosk scripts, or venue tools.
+title: "[Feature]: "
+labels: ["enhancement"]
+body:
+  - type: dropdown
+    id: category
+    attributes:
+      label: Enhancement Area
+      options:
+        - Leaderboard & High Score Chase Slides
+        - Kiosk Power / Startup / Remote Control Behavior
+        - 1-Click Installer Scripts (macOS / Linux / Windows)
+        - Multi-Platform Hardware Support
+        - Venue Pairing & Operator Controls
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: Venue Use Case / Problem Statement
+      description: Describe how your arcade, bar, league, or home game room would use this feature.
+      placeholder: "In our 25-machine arcade bar, we would love to..."
+    validations:
+      required: true
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed Solution
+      description: Describe how you envision this working on the TV display or in the installer scripts.
+    validations:
+      required: true

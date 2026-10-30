@@ -25,12 +25,15 @@
     "humanGuide": "HUMAN_INSTALL_GUIDE.md",
     "aiAgentPlaybook": "AI_AGENT_INSTALL_GUIDE.md",
     "multiPlatformGuide": "MULTI_PLATFORM_GUIDE.md",
-    "securityPolicy": "SECURITY.md"
+    "securityPolicy": "SECURITY.md",
+    "contributingGuide": "CONTRIBUTING.md",
+    "codeOfConduct": "CODE_OF_CONDUCT.md",
+    "accessibilityStatement": "ACCESSIBILITY.md"
   },
   "scripts": {
     "firestickSetupMacLinux": "scripts/setup-firestick.sh",
     "firestickSetupWindows": "scripts/setup-firestick.bat",
     "kioskPowerTuner": "scripts/kiosk-power-settings.sh"
   },
-  "packagedAt": "2026-10-30T17:29:55.991Z"
+  "packagedAt": "2026-10-30T17:47:19.901Z"
 }
