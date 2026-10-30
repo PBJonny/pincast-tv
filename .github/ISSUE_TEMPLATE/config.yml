@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Pinball Buddies Support
+    url: mailto:support@pinballbuddies.com
+    about: Email our team directly for venue setup help or account questions.
+  - name: Security Vulnerability Disclosure
+    url: https://github.com/PBJonny/pincast-tv/blob/main/SECURITY.md
+    about: Please report security issues privately according to SECURITY.md.

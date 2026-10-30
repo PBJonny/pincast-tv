@@ -16,7 +16,7 @@ Web browsers on TV hardware (like Silk or Smart TV browsers) suffer from high me
 - 💾 **Room SQLite Offline Persistence**: Keeps showing your venue's latest scores and leaderboards even during internet blips.
 - 🎮 **Full TV Remote Control**: D-Pad Left/Right manual cycling, D-Pad Center pause/resume, and Back button Operator PIN management.
 - 🛡️ **Arcade Burn-In Protection**: Subtle micro-pixel drift (±2dp drift every 120s) protects arcade CRTs, OLEDs, and commercial LCDs from image retention.
-- 📱 **6-Digit & QR Code Handshake**: Seamlessly pairs with your venue from the Pinball Buddies phone app.
+- 📱 **8-Character & QR Code Handshake**: Seamlessly pairs with your venue from the Pinball Buddies phone app.
 
 ---
 
@@ -26,7 +26,7 @@ Web browsers on TV hardware (like Silk or Smart TV browsers) suffer from high me
 |---|---|---|
 | **Amazon Fire TV Stick** | **Tier 1 (Native App)** | Sideload `pinball-buddies-pincast-tv.apk` (Fire OS 7/8) |
 | **Google TV & Android TV** | **Tier 1 (Native App)** | Sideload `pinball-buddies-pincast-tv.apk` (Chromecast, Sony, Shield) |
-| **Apple TV (tvOS)** | **Tier 1 (Native App)** | Native SwiftUI app (`ios/App/AppTV`) on TestFlight & App Store |
+| **Apple TV (tvOS)** | **Tier 1 (Native App)** | Native SwiftUI tvOS app (`PinballBuddiesTV`) on TestFlight & App Store |
 | **Raspberry Pi 4 / 5** | **Tier 1 (Native TV)** | Android TV / LineageOS 21 (KonstaKANG) with native APK |
 | **Windows / Linux Mini-PCs** | **Tier 1 (Native)** | Android Subsystem (WSA / Waydroid) or Compose Desktop |
 
@@ -70,7 +70,7 @@ Wondering how our native code runs on Google TV, Apple TV, Raspberry Pi, or mini
 👉 Read our comprehensive architectural guide: **[`MULTI_PLATFORM_GUIDE.md`](./MULTI_PLATFORM_GUIDE.md)**.
 
 - **Google TV & Android TV**: Uses the exact same `pinball-buddies-pincast-tv.apk`!
-- **Apple TV (tvOS)**: Native SwiftUI target located in `ios/App/AppTV/` (`PinballBuddiesTV`).
+- **Apple TV (tvOS)**: Native SwiftUI tvOS app (`PinballBuddiesTV`) available via TestFlight & the App Store.
 - **Raspberry Pi 4 / 5**: Run LineageOS Android TV to run our native APK with full GPU acceleration.
 - **Smart TVs (Samsung / LG)**: Plug a \$25 Fire Stick or Onn. Google TV into HDMI to bypass slow TV OS software.
 
@@ -93,10 +93,11 @@ pincast/
 ├── HUMAN_INSTALL_GUIDE.md         # Step-by-step human guide (1-Click Wi-Fi setup)
 ├── AI_AGENT_INSTALL_GUIDE.md      # Deterministic playbook for AI agents
 ├── MULTI_PLATFORM_GUIDE.md        # Native multi-platform adaptation playbook
+├── SECURITY.md                    # APK signature verification & security disclosure policy
 ├── manifest.json                  # Release metadata & SHA-256 integrity hash
 └── scripts/
-    ├── setup-firestick.sh         # macOS/Linux automated native APK installer
-    ├── setup-firestick.bat        # Windows automated native APK installer
+    ├── setup-firestick.sh         # macOS/Linux automated native APK installer (with SHA-256 check)
+    ├── setup-firestick.bat        # Windows automated native APK installer (with SHA-256 check)
     └── kiosk-power-settings.sh    # 24/7 ADB display sleep and power tuner
 ```
 

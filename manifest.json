@@ -17,18 +17,20 @@
   ],
   "apkFileName": "pinball-buddies-pincast-tv.apk",
   "apkSizeBytes": 18377568,
+  "apkSizeMb": 17.53,
+  "apkSha256": "ee21ab1cf3d2b9092aae820fd44530d0aa782e2aa2e3044239ff956c8d7221ee",
+  "signingCertificateSha256": "d7da0d5619c8969bc7ae92e9044e3b8a045fde44ac93e47cc81ce06d7515d79f",
   "documentation": {
     "overview": "README.md",
     "humanGuide": "HUMAN_INSTALL_GUIDE.md",
     "aiAgentPlaybook": "AI_AGENT_INSTALL_GUIDE.md",
-    "multiPlatformGuide": "MULTI_PLATFORM_GUIDE.md"
+    "multiPlatformGuide": "MULTI_PLATFORM_GUIDE.md",
+    "securityPolicy": "SECURITY.md"
   },
   "scripts": {
     "firestickSetupMacLinux": "scripts/setup-firestick.sh",
     "firestickSetupWindows": "scripts/setup-firestick.bat",
     "kioskPowerTuner": "scripts/kiosk-power-settings.sh"
   },
-  "apkSha256": "ee21ab1cf3d2b9092aae820fd44530d0aa782e2aa2e3044239ff956c8d7221ee",
-  "apkSizeMb": 17.53,
   "packagedAt": "2026-09-26T05:25:50.221Z"
 }

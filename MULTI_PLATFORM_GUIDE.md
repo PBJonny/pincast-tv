@@ -48,13 +48,13 @@ Install via the automated 1-click Wi-Fi installer: `./scripts/setup-firestick.sh
 
 ## 3. Apple TV (tvOS)
 
-For venues using Apple TV 4K or Apple TV HD hardware, we created a **100% native SwiftUI tvOS application** located in the repository at `ios/App/AppTV/` (`PinballBuddiesTV`).
+For venues using Apple TV 4K or Apple TV HD hardware, we provide a **100% native SwiftUI tvOS application** (`PinballBuddiesTV`).
 
 ### Architecture Parity with Fire TV:
 - Real-time Firestore snapshot listeners.
 - Local snapshot caching with automatic offline recovery.
 - Native Apple TV Siri Remote focus engine.
-- Shared 6-digit pairing handshake and QR code scanner.
+- Shared 8-character pairing handshake and QR code scanner.
 
 ### Deployment:
 - **Public Beta (TestFlight)**: [https://testflight.apple.com/join/Z2tSzfsx](https://testflight.apple.com/join/Z2tSzfsx)

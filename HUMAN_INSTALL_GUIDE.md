@@ -62,12 +62,13 @@ From the unzipped release folder on your computer, open your terminal (or Comman
 
 ### Step 5: Link Your TV with Your Smartphone (1-Tap Pairing)
 1. **Pinball Buddies Pincast TV** will launch natively on your screen in full 1080p/4K resolution.
-2. You will see a 6-digit **Pairing Code** and a large **QR Code**.
+2. You will see an 8-character **Pairing Code** and a large **QR Code**.
 3. Open your smartphone camera or the Pinball Buddies app.
 4. Navigate to your **Venue Dashboard > Displays > Pair New Display** (or scan the QR code).
-5. Enter the 6-digit code.
+5. Enter the pairing code (and set your 6-digit Operator Management PIN if this is your venue's first display).
 6. Tap **Approve Display**!
 7. **Your TV will instantly activate the live leaderboard carousel!** 🚀
+8. 🔒 **Security Best Practice**: Once setup is complete, turn **ADB Debugging OFF** on your Fire TV (**Settings > My Fire TV > Developer Options > ADB Debugging > OFF**) so other devices on the venue Wi-Fi cannot connect to the TV over ADB.
 
 ---
 
@@ -92,7 +93,7 @@ Unlike web browsers that require awkward mouse pointers, Pinball Buddies Pincast
 
 - **D-Pad Left / Right**: Manually cycle between machines and leaderboard slides.
 - **D-Pad Center (Select)**: Pause / resume automatic carousel rotation.
-- **Back Button**: Opens the Operator Management PIN Pad (default PIN: `1234` or custom PIN set in venue dashboard). From the operator menu, you can toggle playlists, force reload snapshots, or re-pair the display.
+- **Back Button**: Opens the Operator Management PIN Pad (protected by the 6-digit Operator PIN configured in your Venue Dashboard). From the operator menu, you can toggle playlists, moderate scores, force reload snapshots, or re-pair the display.
 
 ---
 

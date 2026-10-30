@@ -2,12 +2,15 @@
 rem ==============================================================================
 rem Pinball Buddies Pincast TV — Automated Fire Stick & Android TV Installer (Windows)
 rem ==============================================================================
+rem Before installing, verifies the APK SHA-256 hash matches manifest.json.
+rem ==============================================================================
 
 setlocal enabledelayedexpansion
 
 set "SCRIPT_DIR=%~dp0"
 set "PACKAGE_DIR=%SCRIPT_DIR%.."
 set "APK_PATH=%PACKAGE_DIR%\pinball-buddies-pincast-tv.apk"
+set "MANIFEST_PATH=%PACKAGE_DIR%\manifest.json"
 set "PACKAGE_NAME=com.pinballbuddies.app.tv"
 set "ACTIVITY_NAME=.MainActivity"
 
@@ -20,6 +23,17 @@ if not exist "%APK_PATH%" (
     echo     %APK_PATH%
     pause
     exit /b 1
+)
+
+rem 1. Verify APK SHA-256 against manifest.json using PowerShell
+if exist "%MANIFEST_PATH%" (
+    echo [*] Verifying APK SHA-256 checksum...
+    powershell -NoProfile -Command "$expected = (Get-Content -Raw '%MANIFEST_PATH%' | ConvertFrom-Json).apkSha256.ToLower(); $actual = (Get-FileHash -Algorithm SHA256 '%APK_PATH%').Hash.ToLower(); if ($expected -ne $actual) { Write-Host '[-] ERROR: APK checksum mismatch! Expected' $expected 'but got' $actual -ForegroundColor Red; exit 1 } else { Write-Host '[+] APK checksum verified (' $actual ').' }"
+    if !errorlevel! neq 0 (
+        echo [-] Checksum verification failed. Do not install this APK.
+        pause
+        exit /b 1
+    )
 )
 
 where adb >nul 2>nul
@@ -44,16 +58,33 @@ if "%DEVICE_IP%"=="" (
     exit /b 1
 )
 
-set "DEVICE_TARGET=%DEVICE_IP%:5555"
+echo %DEVICE_IP% | findstr ":" >nul
+if %errorlevel% equ 0 (
+    set "DEVICE_TARGET=%DEVICE_IP%"
+) else (
+    set "DEVICE_TARGET=%DEVICE_IP%:5555"
+)
 
 echo.
 echo [*] Connecting to %DEVICE_TARGET%...
-adb connect %DEVICE_TARGET%
+adb connect "%DEVICE_TARGET%"
+
+echo [*] Checking device authorization...
+echo     If prompted on your TV screen, select 'Always allow from this computer' -^> OK.
+powershell -NoProfile -Command "for ($i=0; $i -lt 60; $i++) { $out = adb devices | Select-String -SimpleMatch '%DEVICE_TARGET%'; if ($out -match '\sdevice$') { exit 0 }; Start-Sleep -Seconds 1 }; exit 1"
+if !errorlevel! neq 0 (
+    echo [-] Device did not authorize or connect within 60 seconds.
+    echo     Ensure ADB Debugging is ON and accept the prompt on your TV screen.
+    pause
+    exit /b 1
+)
+
+echo [+] Connected and authorized!
 
 echo [*] Installing Pinball Buddies Pincast TV APK...
-adb -s %DEVICE_TARGET% install -r -g "%APK_PATH%"
+adb -s "%DEVICE_TARGET%" install -r "%APK_PATH%"
 if %errorlevel% neq 0 (
-    echo [-] Installation failed. Check device screen for authorization prompt.
+    echo [-] Installation failed.
     pause
     exit /b 1
 )
@@ -61,19 +92,24 @@ if %errorlevel% neq 0 (
 echo [+] Installation successful!
 
 echo [*] Applying 24/7 kiosk power settings...
-adb -s %DEVICE_TARGET% shell settings put system screen_off_timeout 2147483647
-adb -s %DEVICE_TARGET% shell settings put global stay_on_while_plugged_in 3
-adb -s %DEVICE_TARGET% shell settings put secure sleep_timeout 0
-adb -s %DEVICE_TARGET% shell input keyevent KEYCODE_WAKEUP
+adb -s "%DEVICE_TARGET%" shell settings put system screen_off_timeout 2147483647
+adb -s "%DEVICE_TARGET%" shell settings put global stay_on_while_plugged_in 3
+adb -s "%DEVICE_TARGET%" shell settings put secure sleep_timeout 0
+adb -s "%DEVICE_TARGET%" shell input keyevent KEYCODE_WAKEUP
 
 echo [*] Launching Pinball Buddies Pincast TV...
-adb -s %DEVICE_TARGET% shell am start -n %PACKAGE_NAME%/%ACTIVITY_NAME%
+adb -s "%DEVICE_TARGET%" shell am start -n "%PACKAGE_NAME%/%ACTIVITY_NAME%"
+
+adb disconnect "%DEVICE_TARGET%" >nul 2>nul
 
 echo.
 echo ==========================================================
 echo   [✓] Pinball Buddies Pincast TV is now running!
 echo ==========================================================
-echo   1. Check your TV screen for the 6-digit code or QR code.
+echo   1. Check your TV screen for the pairing code or QR code.
 echo   2. Pair the display in the Pinball Buddies mobile app.
+echo ==========================================================
+echo   SECURITY REMINDER: Turn ADB Debugging back OFF on the TV
+echo   (Settings -^> My Fire TV -^> Developer Options -^> ADB Debugging -^> OFF)
 echo ==========================================================
 pause

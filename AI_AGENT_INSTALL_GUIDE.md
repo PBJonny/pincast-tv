@@ -39,9 +39,10 @@ If missing:
 - Debian/Ubuntu: `sudo apt-get install -y adb`
 - Windows: Ensure Android SDK `platform-tools` is in `%PATH%`.
 
-Verify the native APK exists:
+Verify the native APK exists and matches the SHA-256 checksum in `manifest.json`:
 ```bash
 ls -lh pinball-buddies-pincast-tv.apk
+shasum -a 256 pinball-buddies-pincast-tv.apk
 ```
 
 ---
@@ -68,12 +69,11 @@ adb connect "$DEVICE_TARGET"
 
 Execute package installation:
 ```bash
-adb -s "$DEVICE_TARGET" install -r -g pinball-buddies-pincast-tv.apk
+adb -s "$DEVICE_TARGET" install -r pinball-buddies-pincast-tv.apk
 ```
 
 **Flags**:
 - `-r`: Replaces existing package while preserving Room SQLite local cache and credentials.
-- `-g`: Automatically grants all runtime permissions.
 
 ### Verification:
 ```bash
@@ -121,10 +121,13 @@ adb -s "$DEVICE_TARGET" shell pidof com.pinballbuddies.app.tv
 
 ## Step 6: Pairing & Operator Reporting
 
-When the app boots on a fresh device, it generates a 6-digit pairing code and QR code.
+When the app boots on a fresh device, it generates an 8-character pairing code and QR code.
 
-Report to user:
-> *"Pinball Buddies Pincast TV is now running natively on your TV! You will see a 6-digit code on screen. Open your Pinball Buddies phone app, go to your Venue Dashboard > Displays > 'Pair Display', and enter the code to link your arcade leaderboards."*
+Disconnect the ADB session and report to user:
+```bash
+adb disconnect "$DEVICE_TARGET"
+```
+> *"Pinball Buddies Pincast TV is now running natively on your TV! You will see a pairing code and QR code on screen. Open your Pinball Buddies phone app, go to your Venue Dashboard > Displays > 'Pair Display', and scan the QR code or enter the code to link your arcade leaderboards. For security, remember to turn ADB Debugging OFF in Fire TV Developer Options once paired."*
 
 ### Optional Automated Screen Verification:
 ```bash
