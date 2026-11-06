@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 # ==============================================================================
-# Pinball Buddies Pincast TV — Automated Fire Stick & Android TV Installer
+# Pinball Buddies Pincast TV — Automated Fire Stick Kiosk Installer
 # ==============================================================================
 # Installs the commercial Pinball Buddies Pincast TV kiosk app (Flutter + Dart)
-# directly onto Amazon Fire TV Sticks, Google TVs, and Android TVs via ADB.
+# directly onto Amazon Fire TV Sticks via ADB.
 #
 # Before installing, the script verifies:
 #   1. The APK SHA-256 matches the value published in manifest.json.
@@ -36,7 +36,7 @@ die() {
 }
 
 echo "=========================================================="
-echo "  Pinball Buddies Pincast TV — Native TV Setup            "
+echo "  Pinball Buddies Pincast TV — Commercial Kiosk Setup     "
 echo "=========================================================="
 
 # 1. Verify APK exists
@@ -87,7 +87,7 @@ fi
 # 5. Determine Device IP
 DEVICE_IP="${1:-}"
 if [ -z "$DEVICE_IP" ]; then
-  echo "[?] Enter the Fire TV Stick / Android TV IP address:"
+  echo "[?] Enter the Fire TV Stick IP address:"
   echo "    (Find this on Fire TV: Settings -> My Fire TV -> About -> Network)"
   read -r -p "    Device IP: " DEVICE_IP
 fi

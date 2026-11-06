@@ -1,20 +1,17 @@
 name: Bug Report / Installation Issue
-description: Report a problem installing or running Pinball Buddies Pincast TV on your hardware.
+description: Report a problem installing or running Pinball Buddies Pincast TV.
 title: "[Bug]: "
 labels: ["bug"]
 body:
   - type: dropdown
     id: hardware
     attributes:
-      label: TV / Display Hardware
+      label: Fire TV Hardware
       options:
-        - Amazon Fire TV Stick (4K / 4K Max / HD / Lite)
-        - Amazon Fire TV Cube / Smart TV
-        - Chromecast with Google TV / Walmart Onn.
-        - Android TV (Sony, TCL, Hisense, Nvidia Shield, etc.)
-        - Apple TV (tvOS)
-        - Raspberry Pi 4 / 5 (LineageOS Android TV)
-        - Windows / Linux Mini-PC
+        - Amazon Fire TV Stick 4K Max
+        - Amazon Fire TV Stick 4K
+        - Amazon Fire TV Stick HD / Lite
+        - Amazon Fire TV Cube / Fire TV Edition Smart TV
         - Other
     validations:
       required: true

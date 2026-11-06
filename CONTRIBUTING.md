@@ -1,6 +1,6 @@
 # Contributing to Pinball Buddies Pincast TV
 
-Thank you for helping improve **Pinball Buddies Pincast TV**! Whether you are an arcade venue operator testing a new TV stick, a tournament director reporting a display quirk, or a developer improving our automated ADB setup scripts, your contributions are welcome.
+Thank you for helping improve **Pinball Buddies Pincast TV** (`com.pinballbuddies.venuedisplay`)! Whether you are an arcade venue operator setting up a display, a tournament director reporting a display quirk, or a developer improving our automated ADB setup scripts, your contributions are welcome.
 
 By participating in this project, you agree to abide by our [Code of Conduct](./CODE_OF_CONDUCT.md).
 
@@ -9,25 +9,22 @@ By participating in this project, you agree to abide by our [Code of Conduct](./
 ## Ways to Contribute
 
 ### 1. Reporting Bugs & Installation Issues
-If you encounter an issue installing or running `pinball-buddies-pincast-tv.apk` on your hardware, please [open a Bug Report](https://github.com/PBJonny/pincast-tv/issues/new?template=bug_report.yml) and include:
-- **TV / Display Hardware**: (e.g., Amazon Fire TV Stick 4K Max, Chromecast with Google TV, Walmart Onn. 4K, Nvidia Shield, Raspberry Pi 5).
+If you encounter an issue installing or running `pinball-buddies-pincast-tv.apk`, please [open a Bug Report](https://github.com/PBJonny/pincast-tv/issues/new?template=bug_report.yml) and include:
+- **Fire TV Model**: (e.g., Amazon Fire TV Stick 4K Max, Fire TV Stick 4K, Fire TV Stick HD).
 - **Host Computer OS**: (e.g., macOS 15, Windows 11, Ubuntu 24.04) if using the 1-Click Wi-Fi installer.
 - **Terminal / ADB Output**: Any output from `./scripts/setup-firestick.sh` or `.\scripts\setup-firestick.bat`.
 
-### 2. Sharing Verified Hardware Compatibility
-Tested Pincast TV on a new Smart TV, projector, mini-PC, or streaming stick? Submit a [Device Compatibility Report](https://github.com/PBJonny/pincast-tv/issues/new?template=device_compatibility.yml) so we can expand the hardware matrix in [`MULTI_PLATFORM_GUIDE.md`](./MULTI_PLATFORM_GUIDE.md).
-
-### 3. Suggesting Features
+### 2. Suggesting Features
 Have an idea for a new arcade display slide, kiosk power setting, or tournament view? Open a [Feature Request](https://github.com/PBJonny/pincast-tv/issues/new?template=feature_request.yml).
 
-### 4. Security Vulnerabilities
+### 3. Security Vulnerabilities
 Please **do not** report security vulnerabilities in public GitHub issues. Follow our [Security Policy](./SECURITY.md) to report issues privately via [GitHub Private Vulnerability Reporting](https://github.com/PBJonny/pincast-tv/security/advisories/new) or by emailing [support@pinballbuddies.com](mailto:support@pinballbuddies.com).
 
 ---
 
 ## Submitting Pull Requests
 
-We welcome pull requests that improve our installer scripts (`scripts/`), hardware documentation, and multi-platform setup guides.
+We welcome pull requests that improve our installer scripts (`scripts/`) and setup guides.
 
 ### Technical & Security Requirements
 
@@ -50,7 +47,7 @@ We welcome pull requests that improve our installer scripts (`scripts/`), hardwa
      ```
 
 ### Pull Request Workflow
-1. Fork the repository and create a descriptive branch from `main` (e.g., `fix/adb-port-validation` or `docs/onn-4k-pro-setup`).
+1. Fork the repository and create a descriptive branch from `main` (e.g., `fix/adb-port-validation` or `docs/firestick-setup`).
 2. Run local verification (`shellcheck scripts/*.sh` and `jq empty manifest.json`).
 3. Open a Pull Request and complete all sections of the [Pull Request Template](./.github/pull_request_template.md).
 

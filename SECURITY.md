@@ -2,7 +2,7 @@
 
 ## Supported Versions
 
-Only the latest release of **Pinball Buddies Pincast TV** (`pinball-buddies-pincast-tv.apk`) published on the `main` branch and GitHub Releases receives security updates.
+Only the latest release of **Pinball Buddies Pincast TV** (`pinball-buddies-pincast-tv.apk`, `com.pinballbuddies.venuedisplay`) published on the `main` branch and GitHub Releases receives security updates.
 
 | Version | Supported |
 | :--- | :--- |
@@ -26,7 +26,7 @@ Get-FileHash -Algorithm SHA256 .\pinball-buddies-pincast-tv.apk
 ```
 
 ### 2. Official Signing Certificate Fingerprint
-All official Pinball Buddies TV APKs are signed with APK Signature Scheme v2 using the Pinball Buddies release key:
+All official Pinball Buddies Pincast TV APKs are signed with APK Signature Scheme v2 using the Pinball Buddies release key:
 - **Subject DN**: `CN=Pinball Buddies, OU=Mobile, O=Pinball Buddies, L=San Francisco, ST=California, C=US`
 - **Certificate SHA-256 Digest**:
   ```text
@@ -41,9 +41,8 @@ apksigner verify --print-certs pinball-buddies-pincast-tv.apk
 
 ## Venue Hardware Hardening Best Practices
 
-1. **Disable ADB After Installation**: Once `setup-firestick.sh` / `setup-firestick.bat` completes, turn **ADB Debugging OFF** on the TV (`Settings > My Fire TV > Developer Options > ADB Debugging > OFF`). Leaving network ADB (`:5555`) enabled on shared arcade Wi-Fi allows anyone on the same LAN to connect to the TV.
-2. **Use Guest / IoT VLANs**: Connect arcade display hardware to an isolated LAN/VLAN rather than an open public guest network.
-3. **Set a Strong 6-Digit Operator PIN**: When pairing a display in the Pinball Buddies mobile app, configure a non-trivial 6-digit Operator PIN to protect on-screen display management.
+1. **Disable ADB After Installation**: Once `setup-firestick.sh` / `setup-firestick.bat` completes, turn **ADB Debugging OFF** on the Fire TV (`Settings > My Fire TV > Developer Options > ADB Debugging > OFF`). Leaving network ADB (`:5555`) enabled on shared arcade Wi-Fi allows anyone on the same LAN to connect to the TV.
+2. **Use Isolated / IoT VLANs**: Connect arcade display hardware to an isolated LAN/VLAN rather than an open public guest network.
 
 ---
 

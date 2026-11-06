@@ -1,6 +1,6 @@
 # Accessibility Statement
 
-**Pinball Buddies Pincast TV** is committed to making live pinball leaderboards, high score chases, and venue announcements accessible and legible for players, spectators, and venue operators in real-world arcade and bar environments.
+**Pinball Buddies Pincast TV** (`com.pinballbuddies.venuedisplay`) is committed to making live pinball leaderboards, high score chases, tournament brackets, and venue announcements accessible and legible for players, spectators, and venue operators in real-world arcade and bar environments.
 
 ---
 
@@ -9,35 +9,26 @@
 ### 1. 10-Foot Arcade & Low-Light Readability
 - **High-Contrast Palette**: Designed specifically for dimly lit arcades, neon environments, and bright bar televisions using high-contrast foreground typography (`#FFFFFF` and `#E2E8F0`) against deep slate backgrounds.
 - **Distance-Calibrated Typography**: Machine titles, Grand Champion callouts, player rankings, and scores are sized and weighted to be read clearly from **10 to 15 feet (3–4.5 meters)** away without visual crowding.
-- **Clear Rank Differentiation**: Podium positions (`1st`, `2nd`, `3rd`) pair color coding with distinct numeric badges and iconography so rankings never rely on color perception alone.
+- **Clear Rank Differentiation**: Podium positions (`1st`, `2nd`, `3rd`) pair color coding with distinct numeric badges and crown iconography so rankings never rely on color perception alone.
 
-### 2. Full 5-Way D-Pad Remote Control Navigation
-- **Zero Pointer / Mouse Requirement**: Every interactive screen in the native TV app is 100% operable using a standard 5-way directional TV remote (Amazon Fire TV Remote, Google TV Remote, Android TV D-Pad, or Apple TV Siri Remote):
-  - **D-Pad Left / Right**: Manually cycle backward or forward through machine leaderboard slides.
-  - **D-Pad Center / Select**: Pause or resume automatic slide rotation so players can inspect scores at their own pace.
-  - **Back / Return**: Open the 6-digit Operator PIN management modal with clear high-visibility focus rings on every keypad button.
-- **Pairing Flexibility**: Initial venue pairing supports both scanning an on-screen QR code with a phone camera and manually entering an **8-character alphanumeric pairing code** at `pinballbuddies.com/venues` or in the mobile app.
+### 2. Full Fire TV 5-Way D-Pad Remote Navigation
+- **Zero Pointer / Mouse Requirement**: Every interactive operator control in the Flutter/Dart Kiosk application is 100% operable using the standard 5-way directional Fire TV remote:
+  - **Back or Menu Button**: Opens the **Kiosk Configuration** screen from the live display.
+  - **D-Pad Left / Right / Up / Down**: Navigates deterministically between the **Display Server URL** field, **Save & Launch**, and **Reset Default** with high-contrast white focus borders (`2.5px` `#FFFFFF`) on the active button.
+  - **Select / Center**: Activates the focused button (**Save & Launch** or **Reset Default** to clear the current pairing session and return to the QR pairing screen).
+- **Pairing Flexibility**: Initial venue pairing supports both scanning the on-screen QR code with a smartphone camera and manually entering the **8-character alphanumeric Display ID** in the Pinball Buddies iOS app, Android app, or Web app.
 
 ### 3. Photosensitivity & Motion Safety
-- **No Strobe or Rapid Flashing**: Transitions between machine slides use smooth, hardware-accelerated 60fps crossfades and horizontal carousels. The application strictly avoids rapid flashing or high-frequency strobing effects.
-- **Non-Disorienting Burn-In Protection**: Arcade CRT, OLED, and commercial LCD protection uses an imperceptible micro-pixel drift (`±2dp` every 120 seconds) that prevents static image retention without causing motion sickness or visual distraction.
+- **No Strobe or Rapid Flashing**: Transitions between machine leaderboard slides, recent score feeds, and tournament brackets use smooth, hardware-accelerated crossfades and carousels. The application strictly avoids rapid flashing or high-frequency strobing effects.
 
-### 4. Offline Continuity
-- **Room SQLite Local Persistence**: Temporary venue Wi-Fi drops do not trigger jarring flashing error banners or blank screens; the display continues cycling cached leaderboards seamlessly until connectivity is restored.
-
----
-
-## Supported Environments
-
-- **Amazon Fire OS 7 & 8** (Fire TV Stick Lite, HD, 4K, 4K Max, Fire TV Cube, and Fire TV Edition Smart TVs)
-- **Google TV & Android TV 8.0+** (Chromecast with Google TV, Walmart Onn., Sony Bravia, TCL, Hisense, Nvidia Shield)
-- **Apple tvOS** (`PinballBuddiesTV` native SwiftUI application)
+### 4. Connection Resilience & Watchdog Recovery
+- **Automatic Reconnection**: Temporary venue Wi-Fi drops are handled by a built-in 30-second health watchdog and exponential-backoff reconnection daemon (`5s -> 60s`), automatically restoring the live leaderboard display as soon as connectivity returns.
 
 ---
 
 ## Known Limitations
 
-- **Ambient Display Audio**: Pincast TV is designed primarily as a visual ambient signage display for noisy arcade venues and does not currently provide continuous spoken audio narration of cycling leaderboard scores, as TV speakers in arcades are typically muted. Players seeking full screen-reader support (VoiceOver on iOS or TalkBack on Android) can browse live venue leaderboards directly in the Pinball Buddies mobile app or web app at [pinballbuddies.com](https://pinballbuddies.com).
+- **Ambient Display Audio**: Pincast TV is designed as a visual ambient signage display for noisy arcade venues and does not provide continuous spoken audio narration of cycling leaderboard scores, as TV speakers in arcades are typically muted. Players seeking full screen-reader support (VoiceOver on iOS or TalkBack on Android) can browse live venue leaderboards directly in the Pinball Buddies mobile app or web app at [pinballbuddies.com](https://pinballbuddies.com).
 
 ---
 

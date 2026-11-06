@@ -5,16 +5,7 @@
   "versionCode": 1,
   "minSdk": 26,
   "targetSdk": 35,
-  "runtime": "Flutter + Dart Kiosk WebView + Keystore Secure Storage",
-  "supportedPlatforms": [
-    "Amazon Fire TV Stick (All Generations, Fire OS 7 & 8)",
-    "Amazon Fire TV Cube",
-    "Google TV (Chromecast with Google TV)",
-    "Android TV 8.0+ (Sony Bravia, Nvidia Shield, TCL, Hisense, Xiaomi, Philips)",
-    "Raspberry Pi 4 / 5 (LineageOS Android TV 21)",
-    "Windows 11 (Windows Subsystem for Android / WSA)",
-    "Linux (Waydroid Native Container)"
-  ],
+  "runtime": "Flutter + Dart Commercial Kiosk + Keystore Secure Storage",
   "apkFileName": "pinball-buddies-pincast-tv.apk",
   "apkSizeBytes": 50222928,
   "apkSizeMb": 47.9,
@@ -23,8 +14,7 @@
   "documentation": {
     "overview": "README.md",
     "humanGuide": "HUMAN_INSTALL_GUIDE.md",
-    "aiAgentPlaybook": "AI_AGENT_INSTALL_GUIDE.md",
-    "multiPlatformGuide": "MULTI_PLATFORM_GUIDE.md",
+    "automationPlaybook": "AI_AGENT_INSTALL_GUIDE.md",
     "securityPolicy": "SECURITY.md",
     "contributingGuide": "CONTRIBUTING.md",
     "codeOfConduct": "CODE_OF_CONDUCT.md",
@@ -35,5 +25,5 @@
     "firestickSetupWindows": "scripts/setup-firestick.bat",
     "kioskPowerTuner": "scripts/kiosk-power-settings.sh"
   },
-  "packagedAt": "2026-11-06T01:13:38.419Z"
+  "packagedAt": "2026-11-06T01:41:09.486Z"
 }

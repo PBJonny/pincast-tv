@@ -3,7 +3,7 @@
 # Pinball Buddies Pincast — 24/7 Arcade Power & Sleep Tuner (ADB)
 # ==============================================================================
 # Disables screen sleep, disables screensavers, and keeps displays awake 24/7
-# across Amazon Fire TV Sticks, Google TVs, and Android TVs.
+# on Amazon Fire TV Stick kiosk displays.
 #
 # Usage:
 #   ./kiosk-power-settings.sh [TARGET_DEVICE_IP[:PORT]]

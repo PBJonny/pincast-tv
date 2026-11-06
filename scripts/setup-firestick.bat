@@ -1,6 +1,6 @@
 @echo off
 rem ==============================================================================
-rem Pinball Buddies Pincast TV — Automated Fire Stick & Android TV Installer (Windows)
+rem Pinball Buddies Pincast TV — Automated Fire Stick Kiosk Installer (Windows)
 rem ==============================================================================
 rem Before installing, verifies the APK SHA-256 hash matches manifest.json.
 rem ==============================================================================
@@ -15,7 +15,7 @@ set "PACKAGE_NAME=com.pinballbuddies.venuedisplay"
 set "ACTIVITY_NAME=.MainActivity"
 
 echo ==========================================================
-echo   Pinball Buddies Pincast TV — Native TV Setup (Windows)
+echo   Pinball Buddies Pincast TV — Commercial Kiosk Setup
 echo ==========================================================
 
 if not exist "%APK_PATH%" (
@@ -47,7 +47,7 @@ if %errorlevel% neq 0 (
 
 set "DEVICE_IP=%~1"
 if "%DEVICE_IP%"=="" (
-    echo [?] Enter the Fire TV Stick / Android TV IP address:
+    echo [?] Enter the Fire TV Stick IP address:
     echo     (Find this on Fire TV: Settings -^> My Fire TV -^> About -^> Network)
     set /p "DEVICE_IP=    Device IP: "
 )
