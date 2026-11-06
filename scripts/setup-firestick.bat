@@ -11,7 +11,7 @@ set "SCRIPT_DIR=%~dp0"
 set "PACKAGE_DIR=%SCRIPT_DIR%.."
 set "APK_PATH=%PACKAGE_DIR%\pinball-buddies-pincast-tv.apk"
 set "MANIFEST_PATH=%PACKAGE_DIR%\manifest.json"
-set "PACKAGE_NAME=com.pinballbuddies.app.tv"
+set "PACKAGE_NAME=com.pinballbuddies.venuedisplay"
 set "ACTIVITY_NAME=.MainActivity"
 
 echo ==========================================================
@@ -68,6 +68,13 @@ if %errorlevel% equ 0 (
 echo.
 echo [*] Connecting to %DEVICE_TARGET%...
 adb connect "%DEVICE_TARGET%"
+powershell -NoProfile -Command "$out = adb devices | Select-String -SimpleMatch '%DEVICE_TARGET%'; if (-not $out -or $out -match '\soffline$') { exit 1 } else { exit 0 }"
+if !errorlevel! neq 0 (
+    echo [*] Resetting local ADB server and retrying connection to %DEVICE_TARGET%...
+    adb kill-server >nul 2>nul
+    adb start-server >nul 2>nul
+    adb connect "%DEVICE_TARGET%"
+)
 
 echo [*] Checking device authorization...
 echo     If prompted on your TV screen, select 'Always allow from this computer' -^> OK.
@@ -82,7 +89,9 @@ if !errorlevel! neq 0 (
 echo [+] Connected and authorized!
 
 echo [*] Installing Pinball Buddies Pincast TV APK...
-adb -s "%DEVICE_TARGET%" install -r "%APK_PATH%"
+adb -s "%DEVICE_TARGET%" uninstall com.pinballbuddies.app >nul 2>nul
+adb -s "%DEVICE_TARGET%" uninstall com.pinballbuddies.app.tv >nul 2>nul
+adb -s "%DEVICE_TARGET%" install -r -d -g "%APK_PATH%"
 if %errorlevel% neq 0 (
     echo [-] Installation failed.
     pause
@@ -91,9 +100,12 @@ if %errorlevel% neq 0 (
 
 echo [+] Installation successful!
 
-echo [*] Applying 24/7 kiosk power settings...
+echo [*] Applying 24/7 kiosk power and Fire OS auto-boot settings...
+adb -s "%DEVICE_TARGET%" shell appops set "%PACKAGE_NAME%" SYSTEM_ALERT_WINDOW allow
+adb -s "%DEVICE_TARGET%" shell pm grant "%PACKAGE_NAME%" android.permission.WAKE_LOCK >nul 2>nul
+adb -s "%DEVICE_TARGET%" shell dumpsys deviceidle whitelist +"%PACKAGE_NAME%" >nul 2>nul
 adb -s "%DEVICE_TARGET%" shell settings put system screen_off_timeout 2147483647
-adb -s "%DEVICE_TARGET%" shell settings put global stay_on_while_plugged_in 3
+adb -s "%DEVICE_TARGET%" shell settings put global stay_on_while_plugged_in 7
 adb -s "%DEVICE_TARGET%" shell settings put secure sleep_timeout 0
 adb -s "%DEVICE_TARGET%" shell input keyevent KEYCODE_WAKEUP
 

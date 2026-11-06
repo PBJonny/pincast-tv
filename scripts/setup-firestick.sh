@@ -2,7 +2,7 @@
 # ==============================================================================
 # Pinball Buddies Pincast TV — Automated Fire Stick & Android TV Installer
 # ==============================================================================
-# Installs the native Pinball Buddies Pincast TV app (Kotlin + Jetpack Compose)
+# Installs the commercial Pinball Buddies Pincast TV kiosk app (Flutter + Dart)
 # directly onto Amazon Fire TV Sticks, Google TVs, and Android TVs via ADB.
 #
 # Before installing, the script verifies:
@@ -24,7 +24,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PACKAGE_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
 APK_PATH="$PACKAGE_DIR/pinball-buddies-pincast-tv.apk"
 MANIFEST_PATH="$PACKAGE_DIR/manifest.json"
-PACKAGE_NAME="com.pinballbuddies.app.tv"
+PACKAGE_NAME="com.pinballbuddies.venuedisplay"
 ACTIVITY_NAME=".MainActivity"
 # SHA-256 of the official Pinball Buddies release signing certificate.
 EXPECTED_CERT_SHA256="d7da0d5619c8969bc7ae92e9044e3b8a045fde44ac93e47cc81ce06d7515d79f"
@@ -114,6 +114,14 @@ echo "[*] Connecting to $DEVICE_TARGET..."
 adb connect "$DEVICE_TARGET" || true
 
 STATE="$(device_state)"
+if [ -z "$STATE" ] || [ "$STATE" = "offline" ]; then
+  echo "[*] Resetting local ADB server and retrying connection to $DEVICE_TARGET..."
+  adb kill-server >/dev/null 2>&1 || true
+  adb start-server >/dev/null 2>&1 || true
+  adb connect "$DEVICE_TARGET" || true
+  STATE="$(device_state)"
+fi
+
 [ -n "$STATE" ] || die "Failed to connect to $DEVICE_TARGET. Ensure ADB Debugging is ON (Settings -> My Fire TV -> Developer Options) and that this computer is on the same network."
 
 if [ "$STATE" = "unauthorized" ]; then
@@ -131,16 +139,18 @@ fi
 
 echo "[+] Connected to device successfully."
 
-# 6. Install / Update the Native TV APK
-echo "[*] Installing native Pinball Buddies Pincast TV app..."
-adb -s "$DEVICE_TARGET" install -r "$APK_PATH"
+# 6. Install / Update the Pincast TV Kiosk APK
+echo "[*] Installing Pinball Buddies Pincast TV (Flutter/Dart Kiosk)..."
+adb -s "$DEVICE_TARGET" uninstall com.pinballbuddies.app >/dev/null 2>&1 || true
+adb -s "$DEVICE_TARGET" uninstall com.pinballbuddies.app.tv >/dev/null 2>&1 || true
+adb -s "$DEVICE_TARGET" install -r -d -g "$APK_PATH"
 echo "[+] Installation successful!"
 
-# 7. Configure 24/7 Arcade Kiosk Power & Sleep Prevention
-echo "[*] Applying 24/7 arcade kiosk power settings..."
+# 7. Configure 24/7 Arcade Kiosk Power, Overlay Auto-Boot & Sleep Prevention
+echo "[*] Applying 24/7 arcade kiosk power & Fire OS auto-boot settings..."
 "$SCRIPT_DIR/kiosk-power-settings.sh" "$DEVICE_TARGET" || echo "[!] Some power settings could not be applied (non-fatal)."
 
-# 8. Launch the Native App
+# 8. Launch the Kiosk App
 echo "[*] Launching Pinball Buddies Pincast TV..."
 adb -s "$DEVICE_TARGET" shell am start -n "$PACKAGE_NAME/$ACTIVITY_NAME"
 
@@ -151,12 +161,12 @@ echo ""
 echo "=========================================================="
 echo "  [✓] Pinball Buddies Pincast TV is now running!         "
 echo "=========================================================="
-echo "  1. Look at your TV: a pairing code & QR code are shown. "
-echo "  2. Open the Pinball Buddies app on your phone, go to    "
-echo "     your Venue -> Displays -> 'Pair Display', and enter  "
-echo "     the code or scan the QR code.                        "
+echo "  1. Look at your TV: the Connect Display QR code and    "
+echo "     Display ID are shown on screen.                     "
+echo "  2. Scan the QR code with your phone camera (or open    "
+echo "     the Pinball Buddies app) and select your Venue.     "
 echo "  3. The display will immediately load your live arcade   "
-echo "     leaderboard carousel with full offline SQLite cache! "
+echo "     leaderboard carousel in 24/7 kiosk mode!            "
 echo "=========================================================="
 echo ""
 echo "  SECURITY: Turn ADB Debugging back OFF on the TV now:"

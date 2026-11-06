@@ -1,32 +1,32 @@
-# Pinball Buddies Pincast TV: Multi-Platform Architecture & Native Adaptation Playbook
+# Pinball Buddies Pincast TV: Multi-Platform Architecture & Kiosk Deployment Playbook
 
-> **Core Philosophy**: Zero web browsers. The web browser is fragile on TV hardware—it suffers from memory leaks, address bar intrusions, cursor emulation quirks, and lacks offline SQLite persistence.
-> This guide outlines how **the native application code we made for Firestick** runs across TV hardware, and how we adapt native code for all platforms.
+> **Core Philosophy**: Consumer TV web browsers (like Silk or Smart TV browsers) suffer from memory leaks, address bar intrusions, sleep timeouts, and no power-on auto-launch.
+> This guide outlines how the **Pinball Buddies Pincast TV Flutter/Dart Kiosk (`com.pinballbuddies.venuedisplay`)** runs across commercial TV hardware and dedicated arcade platforms.
 
 ---
 
-## Platform Matrix & Native Capabilities
+## Platform Matrix & Kiosk Capabilities
 
-| Platform | Native Runtime | Distribution Binary | Offline Cache | Remote Navigation |
+| Platform | Runtime | Distribution Binary | Watchdog Recovery | Auto-Boot on Power |
 |---|---|---|---|---|
-| **Amazon Fire TV Stick** | Android (Fire OS 7/8) | `pinball-buddies-pincast-tv.apk` | ✅ Room SQLite | ✅ Native D-Pad Focus |
-| **Google TV / Android TV** | Android TV (API 26+) | `pinball-buddies-pincast-tv.apk` | ✅ Room SQLite | ✅ Native D-Pad Focus |
-| **Apple TV 4K / HD** | tvOS 17+ (SwiftUI) | `PinballBuddiesTV.ipa` / TestFlight | ✅ Swift Cache | ✅ Siri Remote Focus Engine |
-| **Raspberry Pi 4 / 5** | Android TV / Compose Linux | `pinball-buddies-pincast-tv.apk` | ✅ Room SQLite | ✅ USB / Bluetooth Remote |
-| **Windows Mini-PC / NUC** | WSA / Compose Desktop | Native APK / `.exe` | ✅ SQLite DB | ✅ Keyboard / Remote |
-| **Linux Mini-PC** | Waydroid / Compose Desktop | Native APK / `.AppImage` | ✅ SQLite DB | ✅ Keyboard / Remote |
+| **Amazon Fire TV Stick** | Android (Fire OS 7/8) | `pinball-buddies-pincast-tv.apk` | ✅ 30s Exponential Backoff | ✅ `BootReceiver` + Overlay |
+| **Google TV / Android TV** | Android TV (API 21+) | `pinball-buddies-pincast-tv.apk` | ✅ 30s Exponential Backoff | ✅ `BootReceiver` + Overlay |
+| **Apple TV 4K / HD** | tvOS 17+ (SwiftUI) | `PinballBuddiesTV.ipa` / TestFlight | ✅ Swift Cache | ✅ tvOS Kiosk Mode |
+| **Raspberry Pi 4 / 5** | Android TV / Linux | `pinball-buddies-pincast-tv.apk` | ✅ 30s Exponential Backoff | ✅ Systemd / `BootReceiver` |
+| **Windows Mini-PC / NUC** | WSA / Flutter Windows | Native APK / `.exe` | ✅ 30s Exponential Backoff | ✅ Startup Folder |
+| **Linux Mini-PC** | Waydroid / Flutter Linux | Native APK / Linux Binary | ✅ 30s Exponential Backoff | ✅ Autostart Service |
 
 ---
 
 ## 1. Amazon Fire TV Stick (Fire OS 7 & 8)
 
-The native app in this package (`pinball-buddies-pincast-tv.apk`) is built with Kotlin and Jetpack Compose for TV.
+The kiosk app in this package (`pinball-buddies-pincast-tv.apk`, package `com.pinballbuddies.venuedisplay`) is built with **Flutter and Dart**.
 
 ### Key Capabilities on Fire TV:
-- **Automated 1-Click Wi-Fi Setup**: `./scripts/setup-firestick.sh <FIRE_TV_IP>` installs the APK, configures 24/7 kiosk sleep prevention, and auto-launches the display.
-- **Offline Room Database**: Stores display snapshots locally in SQLite so screens keep running even if the venue's internet drops.
-- **Arcade Burn-In Protection**: Subtle micro-pixel drift (±2dp drift every 120s) prevents image retention on arcade OLEDs and CRT monitors.
-- **Physical Remote Integration**: D-Pad Left/Right cycles machines; Back button opens Operator PIN pad.
+- **Automated 1-Click Wi-Fi Setup**: `./scripts/setup-firestick.sh <FIRE_TV_IP>` installs the APK, grants `SYSTEM_ALERT_WINDOW` auto-boot overlay permissions, configures 24/7 kiosk sleep prevention, and auto-launches the display.
+- **Full Web Display Parity**: Renders `https://pinballbuddies.com/display` with multi-machine leaderboards, multi-zone screen layouts, score chases, tournament brackets, and live high-score celebrations.
+- **Native Watchdog & Crash Recovery**: Monitors page health every 30s and automatically reconnects with exponential backoff (`5s -> 60s`) if venue Wi-Fi blips.
+- **Physical Remote Integration**: Pressing **Menu** or **Back** on the remote (or holding for 2.5s) opens the **Kiosk Configuration** screen.
 
 ---
 
@@ -86,7 +86,7 @@ For venues using small media PCs:
 
 ### Method A: Native Android Subsystem (WSA / Waydroid)
 - **Windows 11**: Using Windows Subsystem for Android (WSA), simply double-click `pinball-buddies-pincast-tv.apk` to install and run in fullscreen landscape.
-- **Linux (Ubuntu/Debian)**: Run `waydroid app install pinball-buddies-pincast-tv.apk` and launch `waydroid app launch com.pinballbuddies.app.tv`.
+- **Linux (Ubuntu/Debian)**: Run `waydroid app install pinball-buddies-pincast-tv.apk` and launch `waydroid app launch com.pinballbuddies.venuedisplay`.
 
 ### Method B: Compose Multiplatform Desktop Executable
 - Compiles the Compose TV UI into a native Windows `.exe` / `.msi` using Kotlin JVM.

@@ -1,7 +1,7 @@
 # Pinball Buddies Pincast TV: Installation & Setup Guide
 
-> **100% Native TV App** — Built specifically for TV hardware with Kotlin, Jetpack Compose for TV, and Room SQLite offline caching. Zero clunky web browsers.
-> **Automated Setup**: Installs the native APK, applies 24/7 arcade kiosk sleep prevention, and auto-launches the display over your local Wi-Fi network in seconds.
+> **Commercial Flutter & Dart Kiosk App (`com.pinballbuddies.venuedisplay`)** — Built specifically for commercial arcade TV hardware with Flutter, Dart, hardware wake locks, a native watchdog crash-recovery daemon, Fire OS power-on auto-boot (`BootReceiver`), and Android Keystore secure storage.
+> **Automated Setup**: Installs the signed production APK, grants Fire OS power-on auto-boot overlay permissions, applies 24/7 arcade kiosk sleep prevention, and auto-launches the display over your local Wi-Fi network in seconds.
 
 ---
 
@@ -9,8 +9,8 @@
 
 This is the standard installation method for all venues. Running the installer script over Wi-Fi automatically:
 1. Installs the signed production APK (`pinball-buddies-pincast-tv.apk`).
-2. Configures 24/7 arcade kiosk power settings (disables sleep timers, stays awake on AC power, and turns off screensavers).
-3. Launches the native app directly on your TV screen in 1080p/4K landscape.
+2. Grants Fire OS auto-boot overlay permission (`SYSTEM_ALERT_WINDOW`) and configures 24/7 arcade kiosk power settings (disables sleep timers, stays awake on AC power, and turns off screensavers).
+3. Launches the Pincast TV display directly on your TV screen in 1080p/4K landscape.
 
 ---
 
@@ -61,14 +61,12 @@ From the unzipped release folder on your computer, open your terminal (or Comman
 ---
 
 ### Step 5: Link Your TV with Your Smartphone (1-Tap Pairing)
-1. **Pinball Buddies Pincast TV** will launch natively on your screen in full 1080p/4K resolution.
-2. You will see an 8-character **Pairing Code** and a large **QR Code**.
-3. Open your smartphone camera or the Pinball Buddies app.
-4. Navigate to your **Venue Dashboard > Displays > Pair New Display** (or scan the QR code).
-5. Enter the pairing code (and set your 6-digit Operator Management PIN if this is your venue's first display).
-6. Tap **Approve Display**!
-7. **Your TV will instantly activate the live leaderboard carousel!** 🚀
-8. 🔒 **Security Best Practice**: Once setup is complete, turn **ADB Debugging OFF** on your Fire TV (**Settings > My Fire TV > Developer Options > ADB Debugging > OFF**) so other devices on the venue Wi-Fi cannot connect to the TV over ADB.
+1. **Pinball Buddies Pincast TV** will launch on your screen in full 1080p/4K resolution showing the **Connect Display** screen.
+2. You will see a **Display ID** and a large **QR Code**.
+3. Open your smartphone camera (or the Pinball Buddies app) and scan the QR code on your TV screen.
+4. Select your **Venue** (or Private Arcade) and screen name (e.g. `Main Display`), then tap **Link Display**!
+5. **Your TV will instantly activate the live leaderboard carousel!** 🚀
+6. 🔒 **Security Best Practice**: Once setup is complete, turn **ADB Debugging OFF** on your Fire TV (**Settings > My Fire TV > Developer Options > ADB Debugging > OFF**) so other devices on the venue Wi-Fi cannot connect to the TV over ADB.
 
 ---
 
@@ -87,23 +85,22 @@ From the unzipped release folder on your computer, open your terminal (or Comman
 
 ---
 
-## 🎮 Native TV Remote Navigation
+## 🎮 TV Remote & Kiosk Configuration Controls
 
-Unlike web browsers that require awkward mouse pointers, Pinball Buddies Pincast TV is 100% remote-control native:
+Pinball Buddies Pincast TV runs unattended in immersive fullscreen landscape mode, with built-in operator controls:
 
-- **D-Pad Left / Right**: Manually cycle between machines and leaderboard slides.
-- **D-Pad Center (Select)**: Pause / resume automatic carousel rotation.
-- **Back Button**: Opens the Operator Management PIN Pad (protected by the 6-digit Operator PIN configured in your Venue Dashboard). From the operator menu, you can toggle playlists, moderate scores, force reload snapshots, or re-pair the display.
+- **Menu or Back Button on Remote (or 2.5s Long-Press)**: Opens the **Kiosk Configuration** screen where operators can inspect or customize the Display Server / Pairing URL, reset to the default handshake URL (`https://pinballbuddies.com/display`), or view auto-launch status.
+- **Venue Dashboard Remote Control**: From your phone or computer (**Venue Dashboard > Displays**), you can change multi-zone screen layouts, switch active playlists, spotlight individual machines or tournaments, and remotely refresh all screens in real time.
 
 ---
 
 ## 🛠️ Frequently Asked Questions (FAQ)
 
 ### Why do I see the Fire TV home screen for 30–60 seconds after powering on?
-That is 100% normal cold-boot behavior. Fire OS needs time to boot and connect to Wi-Fi. An intentional startup delay timer waits for the network and HDMI handshake to stabilize before automatically launching Pinball Buddies Pincast. It is not frozen or broken—just give it a minute!
+That is 100% normal cold-boot behavior. Fire OS needs time to boot and connect to Wi-Fi before broadcasting `BOOT_COMPLETED` to launch Pinball Buddies Pincast TV. It is not frozen or broken—just give it a minute!
 
-### Why automated script setup instead of a TV web browser?
-TV browsers (like Silk or smart TV web browsers) suffer from high memory consumption, address bar popups, lack of D-pad remote focus, and frequent crashes. Our automated installer puts a 100% native Kotlin + Jetpack Compose app directly on the hardware with 24/7 sleep prevention and Room SQLite local database persistence—if your venue's Wi-Fi drops, your screens keep running flawlessly!
+### Why use the Flutter/Dart Kiosk app instead of a standard TV web browser?
+Standard TV browsers (like Amazon Silk) suffer from memory leaks, address bar popups, sleep timeouts, and no auto-start on power-on. Our commercial Flutter/Dart kiosk app (`com.pinballbuddies.venuedisplay`) locks the display in immersive fullscreen landscape, enforces hardware and window wake locks (`WakelockPlus` + `FLAG_KEEP_SCREEN_ON`), auto-boots on power-on via `BootReceiver` + `SYSTEM_ALERT_WINDOW`, and runs a native 30-second watchdog daemon with exponential-backoff auto-recovery if venue Wi-Fi ever drops!
 
 ### Does this prevent screen sleep during arcade hours?
-Yes! The installer configures permanent screen timeout (`screen_off_timeout 2147483647`), keeps the device awake on AC power (`stay_on_while_plugged_in 3`), disables screensavers, and the native app itself enforces active wake-lock management and burn-in micro-pixel drift (±2dp drift every 120s) to protect arcade OLEDs and CRT monitors.
+Yes! The installer configures permanent screen timeout (`screen_off_timeout 2147483647`), keeps the device awake on power (`stay_on_while_plugged_in 7`), exempts the app from Doze battery optimization, disables screensavers, and the Flutter app itself enforces active hardware and window wake locks 24/7.

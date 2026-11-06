@@ -1,7 +1,7 @@
-# AI Agent Installation Playbook: Pinball Buddies Pincast TV (Native)
+# AI Agent Installation Playbook: Pinball Buddies Pincast TV (Flutter/Dart Kiosk)
 
-> **Target Audience**: AI Agents (Claude Computer Use, Antigravity, OpenDevin, Cursor, AutoGPT, or local LLMs equipped with shell/ADB tools) deploying the native Pinball Buddies Pincast TV application.
-> **Scope**: Pure native installation of `pinball-buddies-pincast-tv.apk` (`com.pinballbuddies.app.tv`) on Amazon Fire TV Sticks, Google TVs, Android TVs, and Android-based appliances. Zero web browsers.
+> **Target Audience**: AI Agents (Claude Computer Use, Antigravity, OpenDevin, Cursor, AutoGPT, or local LLMs equipped with shell/ADB tools) deploying the commercial Pinball Buddies Pincast TV kiosk application.
+> **Scope**: Automated installation of `pinball-buddies-pincast-tv.apk` (`com.pinballbuddies.venuedisplay`) on Amazon Fire TV Sticks, Google TVs, Android TVs, and Android-based arcade appliances.
 
 ---
 
@@ -65,69 +65,78 @@ adb connect "$DEVICE_TARGET"
 
 ---
 
-## Step 3: Install Native TV APK
+## Step 3: Install Pincast TV Kiosk APK
 
 Execute package installation:
 ```bash
-adb -s "$DEVICE_TARGET" install -r pinball-buddies-pincast-tv.apk
+adb -s "$DEVICE_TARGET" install -r -d -g pinball-buddies-pincast-tv.apk
 ```
 
 **Flags**:
-- `-r`: Replaces existing package while preserving Room SQLite local cache and credentials.
+- `-r`: Replaces existing package while preserving Keystore-backed configuration and credentials.
+- `-d`: Allows version code downgrade if reinstalling.
+- `-g`: Grants all declared runtime permissions automatically.
 
 ### Verification:
 ```bash
-adb -s "$DEVICE_TARGET" shell pm list packages | grep "com.pinballbuddies.app.tv"
+adb -s "$DEVICE_TARGET" shell pm list packages | grep "com.pinballbuddies.venuedisplay"
 ```
-**Expected**: `package:com.pinballbuddies.app.tv`
+**Expected**: `package:com.pinballbuddies.venuedisplay`
 
 ---
 
-## Step 4: Configure 24/7 Arcade Kiosk Power
+## Step 4: Configure 24/7 Arcade Kiosk Power & Auto-Boot
 
-Prevent Fire OS / Android TV from sleeping during arcade hours:
+Prevent Fire OS / Android TV from sleeping during arcade hours and grant power-on auto-boot overlay permissions:
 ```bash
-# 1. Permanent screen timeout
+# 1. Grant SYSTEM_ALERT_WINDOW overlay so BootReceiver auto-launches on Fire OS boot
+adb -s "$DEVICE_TARGET" shell appops set com.pinballbuddies.venuedisplay SYSTEM_ALERT_WINDOW allow
+
+# 2. Grant WAKE_LOCK and exempt from Doze battery optimization
+adb -s "$DEVICE_TARGET" shell pm grant com.pinballbuddies.venuedisplay android.permission.WAKE_LOCK
+adb -s "$DEVICE_TARGET" shell dumpsys deviceidle whitelist +com.pinballbuddies.venuedisplay
+
+# 3. Permanent screen timeout
 adb -s "$DEVICE_TARGET" shell settings put system screen_off_timeout 2147483647
 
-# 2. Stay awake on AC power
-adb -s "$DEVICE_TARGET" shell settings put global stay_on_while_plugged_in 3
+# 4. Stay awake on AC/USB power
+adb -s "$DEVICE_TARGET" shell settings put global stay_on_while_plugged_in 7
 
-# 3. Disable ambient screensaver sleep
+# 5. Disable ambient screensaver sleep
 adb -s "$DEVICE_TARGET" shell settings put secure sleep_timeout 0
 
-# 4. Wake display immediately
+# 6. Wake display immediately
 adb -s "$DEVICE_TARGET" shell input keyevent KEYCODE_WAKEUP
 ```
 
 ---
 
-## Step 5: Launch Native Activity & Verify Process
+## Step 5: Launch Kiosk Activity & Verify Process
 
 Launch the TV activity:
 ```bash
-adb -s "$DEVICE_TARGET" shell am start -n com.pinballbuddies.app.tv/.MainActivity
+adb -s "$DEVICE_TARGET" shell am start -n com.pinballbuddies.venuedisplay/.MainActivity
 ```
 
 Verify process is running:
 ```bash
-adb -s "$DEVICE_TARGET" shell pidof com.pinballbuddies.app.tv
+adb -s "$DEVICE_TARGET" shell pidof com.pinballbuddies.venuedisplay
 ```
 *(Must return a numeric PID)*.
 
-> ⚠️ **Agent Notice (Startup Delay Timer)**: If testing cold-boot behavior or executing `adb reboot`, allow **45 to 60 seconds** after power-on. Fire OS takes ~30s to boot and connect to Wi-Fi, and the startup sequence includes an intentional delay timer before launching the application. Do not mark the test as failed during this initialization window.
+> ⚠️ **Agent Notice (Cold Boot Behavior)**: If testing cold-boot behavior or executing `adb reboot`, allow **45 to 60 seconds** after power-on. Fire OS takes ~30s to boot and connect to Wi-Fi before broadcasting `BOOT_COMPLETED` to launch the application. Do not mark the test as failed during this initialization window.
 
 ---
 
 ## Step 6: Pairing & Operator Reporting
 
-When the app boots on a fresh device, it generates an 8-character pairing code and QR code.
+When the app boots on a fresh device, it loads `https://pinballbuddies.com/display` and displays a QR code and 8-character Display ID.
 
 Disconnect the ADB session and report to user:
 ```bash
 adb disconnect "$DEVICE_TARGET"
 ```
-> *"Pinball Buddies Pincast TV is now running natively on your TV! You will see a pairing code and QR code on screen. Open your Pinball Buddies phone app, go to your Venue Dashboard > Displays > 'Pair Display', and scan the QR code or enter the code to link your arcade leaderboards. For security, remember to turn ADB Debugging OFF in Fire TV Developer Options once paired."*
+> *"Pinball Buddies Pincast TV is now running on your TV! You will see the Connect Display QR code and Display ID on screen. Scan the QR code with your phone camera to link your venue or private arcade. For security, remember to turn ADB Debugging OFF in Fire TV Developer Options once paired."*
 
 ### Optional Automated Screen Verification:
 ```bash
@@ -138,12 +147,9 @@ adb -s "$DEVICE_TARGET" exec-out screencap -p > /tmp/pincast_screen_check.png
 
 ## Remote Diagnostics & Control Matrix
 
-- D-Pad Center: `adb -s "$DEVICE_TARGET" shell input keyevent KEYCODE_DPAD_CENTER`
-- D-Pad Left: `adb -s "$DEVICE_TARGET" shell input keyevent KEYCODE_DPAD_LEFT`
-- D-Pad Right: `adb -s "$DEVICE_TARGET" shell input keyevent KEYCODE_DPAD_RIGHT`
-- Back Button (Opens Operator PIN Pad): `adb -s "$DEVICE_TARGET" shell input keyevent KEYCODE_BACK`
+- Back / Menu Button (Opens Kiosk Configuration): `adb -s "$DEVICE_TARGET" shell input keyevent KEYCODE_BACK`
 - Force Restart:
   ```bash
-  adb -s "$DEVICE_TARGET" shell am force-stop com.pinballbuddies.app.tv
-  adb -s "$DEVICE_TARGET" shell am start -n com.pinballbuddies.app.tv/.MainActivity
+  adb -s "$DEVICE_TARGET" shell am force-stop com.pinballbuddies.venuedisplay
+  adb -s "$DEVICE_TARGET" shell am start -n com.pinballbuddies.venuedisplay/.MainActivity
   ```

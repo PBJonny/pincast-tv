@@ -1,22 +1,22 @@
-# Pinball Buddies Pincast TV — Native Ambient Arcade Signage
+# Pinball Buddies Pincast TV — Commercial Arcade Signage Kiosk
 
-> 100% Native TV Application built with Kotlin, Jetpack Compose for TV, and Room SQLite offline caching.
-> Turn any Amazon Fire TV Stick, Google TV, or Android TV device into a high-performance arcade leaderboard display.
+> Commercial Flutter & Dart Kiosk Application (`com.pinballbuddies.venuedisplay`) with hardware wake locks, native watchdog crash recovery, Fire OS power-on auto-boot, and Android Keystore secure storage.
+> Turn any Amazon Fire TV Stick, Google TV, or Android TV device into a 24/7 unattended arcade leaderboard display.
 
 ![Pincast Ambient Arcade Display Banner](./tv_banner.png)
 
 ---
 
-## Why Native? (No Web Browsers)
+## Why the Dedicated Flutter/Dart Kiosk App?
 
-Web browsers on TV hardware (like Silk or Smart TV browsers) suffer from high memory consumption, intrusive address bars, awkward cursor emulation, and frequent crashes.
+Consumer TV web browsers (like Silk or Smart TV browsers) suffer from intrusive address bars, sleep timeouts, no power-on auto-launch, and unrecovered connection drops.
 
-**Pinball Buddies Pincast TV** is built as a pure **native TV application**:
-- ⚡ **60fps Native Hardware Acceleration**: Smooth Compose for TV transitions and fluid slide carousels.
-- 💾 **Room SQLite Offline Persistence**: Keeps showing your venue's latest scores and leaderboards even during internet blips.
-- 🎮 **Full TV Remote Control**: D-Pad Left/Right manual cycling, D-Pad Center pause/resume, and Back button Operator PIN management.
-- 🛡️ **Arcade Burn-In Protection**: Subtle micro-pixel drift (±2dp drift every 120s) protects arcade CRTs, OLEDs, and commercial LCDs from image retention.
-- 📱 **8-Character & QR Code Handshake**: Seamlessly pairs with your venue from the Pinball Buddies phone app.
+**Pinball Buddies Pincast TV** (`com.pinballbuddies.venuedisplay`) is built with **Flutter & Dart** as a commercial unattended signage kiosk that renders the full Pinball Buddies web display experience (`https://pinballbuddies.com/display`):
+- ⚡ **Full Web Display Parity**: Renders multi-machine leaderboards, single-machine spotlights, multi-zone screen layouts, active score chases, tournament brackets, and live high-score alert celebrations.
+- 🔄 **Native Watchdog & Auto-Recovery Daemon**: Built-in 30-second health watchdog and exponential-backoff reconnect daemon (`5s -> 60s`) automatically recover the screen after venue Wi-Fi blips.
+- 🚀 **Fire OS Power-On Auto-Boot**: Native `BootReceiver` + `SYSTEM_ALERT_WINDOW` overlay permission automatically launches the display when the arcade master power strip is switched on.
+- 🛡️ **24/7 Sleep Prevention**: Enforces hardware `WakelockPlus`, Android `FLAG_KEEP_SCREEN_ON`, Doze battery exemption, and permanent display timeout.
+- 📱 **Instant QR Code Handshake**: Launches directly into the **Connect Display** QR code screen—scan with your phone to link to any public venue or private arcade!
 
 ---
 

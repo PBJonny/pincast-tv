@@ -1,11 +1,11 @@
 {
   "name": "Pinball Buddies Pincast TV",
-  "applicationId": "com.pinballbuddies.app.tv",
+  "applicationId": "com.pinballbuddies.venuedisplay",
   "versionName": "1.0.0",
   "versionCode": 1,
   "minSdk": 26,
   "targetSdk": 35,
-  "runtime": "Kotlin + Jetpack Compose for TV + Room SQLite",
+  "runtime": "Flutter + Dart Kiosk WebView + Keystore Secure Storage",
   "supportedPlatforms": [
     "Amazon Fire TV Stick (All Generations, Fire OS 7 & 8)",
     "Amazon Fire TV Cube",
@@ -16,9 +16,9 @@
     "Linux (Waydroid Native Container)"
   ],
   "apkFileName": "pinball-buddies-pincast-tv.apk",
-  "apkSizeBytes": 18377568,
-  "apkSizeMb": 17.53,
-  "apkSha256": "ee21ab1cf3d2b9092aae820fd44530d0aa782e2aa2e3044239ff956c8d7221ee",
+  "apkSizeBytes": 50583376,
+  "apkSizeMb": 48.24,
+  "apkSha256": "86eaa1ca5cf5db7a71c60f261727289f3a16f75d2c5685dfb66e1b2ab787f9de",
   "signingCertificateSha256": "d7da0d5619c8969bc7ae92e9044e3b8a045fde44ac93e47cc81ce06d7515d79f",
   "documentation": {
     "overview": "README.md",
@@ -35,5 +35,5 @@
     "firestickSetupWindows": "scripts/setup-firestick.bat",
     "kioskPowerTuner": "scripts/kiosk-power-settings.sh"
   },
-  "packagedAt": "2026-10-30T17:47:19.901Z"
+  "packagedAt": "2026-11-06T00:37:54.847Z"
 }
