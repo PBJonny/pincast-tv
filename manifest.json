@@ -16,9 +16,9 @@
     "Linux (Waydroid Native Container)"
   ],
   "apkFileName": "pinball-buddies-pincast-tv.apk",
-  "apkSizeBytes": 50583376,
-  "apkSizeMb": 48.24,
-  "apkSha256": "86eaa1ca5cf5db7a71c60f261727289f3a16f75d2c5685dfb66e1b2ab787f9de",
+  "apkSizeBytes": 50222928,
+  "apkSizeMb": 47.9,
+  "apkSha256": "7dd0ec5523d39a545c761132b5fb9b87401594c2d44a5db3f2541e0ac3018275",
   "signingCertificateSha256": "d7da0d5619c8969bc7ae92e9044e3b8a045fde44ac93e47cc81ce06d7515d79f",
   "documentation": {
     "overview": "README.md",
@@ -35,5 +35,5 @@
     "firestickSetupWindows": "scripts/setup-firestick.bat",
     "kioskPowerTuner": "scripts/kiosk-power-settings.sh"
   },
-  "packagedAt": "2026-11-06T00:37:54.847Z"
+  "packagedAt": "2026-11-06T01:13:38.419Z"
 }
